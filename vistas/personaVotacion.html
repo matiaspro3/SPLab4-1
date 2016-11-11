@@ -1,0 +1,92 @@
+<style>
+            .my-drop-zone { border: dotted 3px lightgray; }
+            .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+            .another-file-over-class { border: dotted 3px green; }
+            html, body { height: 100%; }
+</style>
+
+    <div class="Frm animated bounceInLeft" style="background-color:powderblue;">
+      <form class=""  name="myForm" enctype="multipart/form-data">
+        <label class="miEstilo" id="titulo">VOTACION</label><br>
+        
+        <input type="number" id="dni" name="dni" ng-model="persona.dni" placeholder="Ingrese su dni" required="true"><br>
+        Sexo: M
+        <input type="radio" name="sexo" ng-model="persona.sexo" value="m" required> F
+        <input type="radio" name="sexo" ng-model="persona.sexo" value="f" required> <br>
+
+
+
+        <input type="date" id="fecha" name="fechaNac" ng-model="persona.fecha" placeholder="Fecha Nac. yyyy-mm-dd" 
+        max="1998-01-02" min="1977-01-01" required>
+<br>
+
+
+        <select name="estado" ng-model="persona.partido" required="true" value="Partido">
+          <option value="Radicalismo">Radicalismo</option>
+          <option value="Peronismo">Peronismo</option>
+        </select><br> 
+
+
+<div>
+    <h3>Agrega imagenes!</h3>
+
+    <!--<div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }"> -->
+    <div nv-file-drop="" uploader="uploader">
+        <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">
+            Arrastra aqui las fotos que quieras.
+        </div>
+    </div>
+</div>
+
+<div >
+    
+    <p>Cantidad de Fotos : {{ uploader.queue.length }}</p>
+
+<table class='table table-hover table-responsive' align="center">
+    <thead>
+        <tr>
+            <th >Nombre</th>
+            <th ng-show="uploader.isHTML5">Tamaño</th>
+            <th ng-show="uploader.isHTML5">Progreso</th>
+            <th>Estado</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in uploader.queue">
+            <td>
+              <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+            </td>
+            <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+            <td ng-show="uploader.isHTML5">
+                <div class="progress" style="margin-bottom: 0;">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                </div>
+            </td>
+            <td class="text-center">
+                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+            </td>
+            <td nowrap>
+                <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                    <span class="glyphicon glyphicon-upload"></span> Subir 
+                </button>
+                <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                    <span class="glyphicon glyphicon-trash"></span> Remover
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button  class="button-green" name="login" id="login" ng-disabled="myForm.$invalid" ng-click="Votar()"><span>VOTAR </span></button>
+</form>
+</div>
+        
+    <h1 style="color:red;" ng-if ="!myForm.$valid">Complete todos los campos!</h1>
+
+    <h1 style="color:blue;" ng-if ="myForm.$valid">Bien!! A votarr!!</h1>

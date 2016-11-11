@@ -1,0 +1,37 @@
+<div>
+  <h3>Directiva</h3>
+
+<html>
+<head>
+	<title></title>
+</head>
+<body>	
+<utn-saludo> </utn-saludo> <!-- E -->
+<div utn-saludo></div> <!-- A -->
+<div class="utn-saludo"></div> <!-- C -->
+
+<utn-saludo-dos></utn-saludo-dos>
+<div utn-saludo-dos></div>
+<div class="utn-saludo-dos"></div>
+<!-- directive: utn-saludo-dos --> <!-- M -->
+
+<utn-titulo></utn-titulo>
+
+<utn-titulo-parametro miparametro="ElParametro"></utn-titulo-parametro>
+
+
+
+<!-- <div ng-repeat="bandera in listadoDeBanderas">
+<utn-bandera mifotobandera="{{bandera.BanderaChica}}" minombrepais="{{bandera.Nombre}}">
+</div>
+</utn-bandera> -->
+
+<div ng-repeat="bandera in listadoDeBanderas">
+<utn-bandera-obj banderita="bandera">
+</div>
+</utn-bandera-obj>
+
+</body>
+</html>
+
+</div>

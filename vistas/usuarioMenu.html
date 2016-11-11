@@ -1,0 +1,33 @@
+
+		<div class="page-header">
+			<center><h1  class="CajaInicio animated swing">Bienvenidooo!!!</h1> </center>     
+		</div>
+	  	 
+		           
+					<div class="CajaInicio animated shake">
+							<h1>USUARIOS</h1>
+						
+							<form id="FormIngreso">
+ 										
+
+									    <a ng-if='!selogueo' ui-sref="usuario.login()" class="list-group-item-success  list-group-item list-group-item-success">
+									      <h4 class="list-group-item-heading">Login de usuarios</h4>
+									    </a>
+										
+									<a ng-if='!selogueo' ui-sref="usuario.registrarse()" class="list-group-item  list-group-item list-group-item-info">
+									      <h4 class="list-group-item-heading">Registro de usuarios</h4>
+									    </a>
+									
+
+									    <a ng-if='selogueo' ng-click="Desloguearse()" class="list-group-item  list-group-item list-group-item-danger">
+									      <h4 class="list-group-item-heading">Desloguearse</h4>
+									    </a>
+									    		Se Logueo {{selogueo}}
+
+
+
+									  </div>
+									
+							</form>
+						</div>
+		

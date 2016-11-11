@@ -1,0 +1,65 @@
+
+	<div  style="background-color: #808080 ;">
+	  <div class="container">
+		<div class="page-header" >
+			<center><h1 class="animated zoomInDown" style="color:lightblue;" >Usuarios</h1> </center>     
+		</div>
+	  	 
+		           
+					<div class="CajaInicio  animated  slideInUp">
+							<h1 style="color:yellow;">Listado de Usuarios</h1>
+							<!-- id="listaPersonas" -->
+								
+								<table class='table table-hover table-responsive ' id="listaPersonas">
+									<thead>
+										<tr>
+											<th>  Usuario   </th>				
+											<th>  Dni     </th>
+											<th>  Password     </th>
+											
+											<th>  BORRAR     </th>
+
+										<!--	<th>  MODIFICAR  </th>-->
+
+										</tr> 
+									</thead>
+									
+									<tr ng-repeat="usuario in ListadoUsers" style="color:blue;">
+										<!--<td><img  class='fotoGrilla' ng-src="{{persona.avatar}}" /></td>-->
+									<!--
+										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" height="44" width="44"/></td>
+							        -->
+										<td>{{usuario.usuario}}</td>
+										<td>{{usuario.dni}}</td>
+										<td>{{usuario.password}}</td>
+										
+											<!--	ng-if se logue!!
+										<td><button ng-if='selogueo' class='btn btn-danger' name='Borrar' ng-click="Borrar(persona)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
+										
+										<td><button ng-if="selogueo" class='btn btn-warning' name='Modificar' ng-click="Modificar(persona)"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
+												-->		
+										<td><button class='btn btn-danger' name='Borrar' ng-click="Borrar(usuario)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
+										
+									<!--	<td><button class='btn btn-warning' name='Modificar' ng-click="Modificar(usuario)"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
+									-->
+
+
+									</tr>
+										
+								</table>
+							</div>
+							<!--
+							<input type="search" ng-model="q" placeholder="Buscar personas..." aria-label="buscar personas" />
+							  <ul class="example-animate-container">
+							    <li class="animate-repeat" ng-repeat="persona in ListadoPersonas| filter:q as results">
+							      [{{$index + 1}}] {{persona.nombre}} who is {{persona.apellido}} years old.
+							    </li>
+							    <li class="animate-repeat" ng-if="results.length == 0">
+							      <strong>No results found...</strong>
+							    </li>
+							  </ul>
+							-->
+						</div>
+		</div></div>
+</body>
+</html>

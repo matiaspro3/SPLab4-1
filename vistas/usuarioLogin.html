@@ -1,0 +1,21 @@
+
+    <div class="Frm animated tada">
+      <form class="" name="myForm">
+        <label class="miEstilo">Login</label><br><br>
+        <input type="text" id="usuario" name="usuario" ng-model="usuario.usuario" placeholder="Ingrese su usuario" value="" required="true"><br>
+        <input type="number" id="dni" name="dni" ng-model="usuario.dni" placeholder="Ingrese su dni" required="true"><br>
+        <input type="password" id="clave" minlength="4" ng-model="usuario.password" placeholder="clave" required="true" value=""><br>
+        <button class="button-green" id="login" ng-click="Login()" ng-disabled="myForm.$invalid"><span>Login </span></button><br><br>
+
+<!--
+        <button class="btn btn-github" ng-click="authenticate('github')"><a class="fa fa-github"></a> Login con GitHub</button>
+-->
+      </form>
+    </div>
+
+        
+    <h1 style="color:pink;" ng-if ="!myForm.$valid">Todos los campos son obligatorios</h1>
+
+    <h1 style="color:green;" ng-if ="myForm.$valid">Muy bien. a Loguearse!!</h1>
+
+    

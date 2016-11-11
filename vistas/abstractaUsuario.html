@@ -1,0 +1,38 @@
+
+ <div class=ui-base> 
+	<ul class="nav nav-tabs ">
+
+		         <li  class="btn btn-primary animated bounceInLeft" >
+		         	<a ui-sref="inicio()">
+		         		 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
+		         		 Inicio
+		         	</a>
+		         </li>
+
+		         <li ng-if='!selogueo'  class="btn btn-danger animated bounceInLeft" >
+		         	<a ui-sref="usuario.login()">
+		         		<span class="glyphicon glyphicon-plus-sign">&nbsp;</span>
+		         		Login
+		         	</a>
+		         </li>
+
+		         <li  ng-if='!selogueo'  class="btn btn-success animated bounceInLeft" >
+		         	<a ui-sref="usuario.registrarse()"> 
+		         		<span class="glyphicon glyphicon-th" >&nbsp;</span>
+		         			Registrarse</a>
+		         		</li>
+
+						 <li  ng-if='selogueo'  class="btn btn-primary animated bounceInLeft" >
+							         	<a ng-click="Grilla()"> 
+							         		<span class="glyphicon glyphicon-list-alt" >&nbsp;</span>
+							         			Listado de Usuarios</a>
+							         		</li>
+
+		        	<span id="tituloBarra"  class="animated bounceInRight"></span>
+
+
+      </ul>
+      <div ui-view name="contenido" animation="slide-left-right">
+
+
+       </div></div>

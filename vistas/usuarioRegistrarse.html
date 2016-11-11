@@ -1,0 +1,22 @@
+<div class="Frm animated flash">
+      <form class="" name="myForm">
+        <label class="miEstilo">Registrarse</label><br><br>
+
+        <input type="text" id="usuario" name="usuario" ng-model="usuario.usuario" placeholder="Ingrese su usuario" value="" required="true"><br>
+
+
+        <input type="number" id="dni" name="dni" ng-model="usuario.dni" placeholder="Ingrese su dni" required="true"><br>
+
+        <input type="password" id="clave" minlength="4" ng-model="usuario.password" placeholder="clave" required="true" value=""><br>
+
+
+
+        <button class="button-green" id="guardar" ng-click="Guardar()" ng-disabled="myForm.$invalid"><span>Registrarse </span></button><br><br>
+
+
+      </form>
+    </div>
+
+    <h1 style="color:red;" ng-if ="!myForm.$valid">Todos los campos son obligatorios</h1>
+
+    <h1 style="color:green;" ng-if ="myForm.$valid">Muy bien. a Registrarse!!</h1>

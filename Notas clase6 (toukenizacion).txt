@@ -1,0 +1,70 @@
+Imstalamos en el projecto las librerías de angular para subir archivos
+bower install angular-file-upload
+
+link de fileUpload: https://github.com/nervgh/angular-file-upload
+
+El include en el controlador "FileUploader" va sin $ porque no es de angular.
+
+En el modulo de app hay que agregar el otro modulo "angularFileUpload"
+
+en el html el uploader="SubidorDeArchivos" tiene que tener el mismo nombre que el objeto fileUploader que creamos en el controlador
+---
+Referenciar el ngThumb.js y asegurarse de que el nombre del modulo tenga el mismo nombre que el de app.js
+
+
+Parcial
+Clase abstractas
+validacion de checkbox
+cambiar el template
+---
+
+ng-drop
+slider
+
+perfil-> cuando subo todo hago un state.go hacia la vista que tiene el slider y le paso como parametro el json de la personita
+
+HACER LOGIN CON GITHUB
+
+----------------------------
+validacion de usuario:
+Gurdar cookies encriptadas o en el local storage del browser en un token json.
+Hay 2 maneras estandar para manejar la validacion de usuario 
+vamos a usar el json web token con una clave de encriptacion que la vamos a elejir nosotros.
+bower -> descarga las dependencias en js.
+
+en el servidor php-> va a estar el auth.php que va a llamar al jwt a los metodos estaticos si la validacion es correcta. 
+Clase ususario.php va a ser la clase que interactua con la bd
+El archivo php del servidor debe devolver el token generado (que va a tener un tiempo de expriración)
+
+Del lado de js vamos a instalar el "satallizer" (github)  
+comando: bower install satellizer --save
+1) instalarlo (incluir en los controladores en el app.js)
+2) referenciarlo en el index.html
+3) inyectarlo en el archivo .js:
+	a) Dentro del modulo de la app = ['satellizer'] Ej.: var app = angular.module('ABMangularPHP', ['ui.router', 'satellizer']);
+	b) En la configuracion (.config) de la app.js, agregar el parámetro $authProvider
+
+4) Definición del método en el controller asociado a la vista donde se aplicara.
+	Ej.: $scope.Login = function(){
+		$auth.login($scope.usuario)
+  			.then(function(response) {
+      		console.info("correcto", response);
+  		});
+
+Tomar datos de php: EJEMPLO: $datosDelModeloPorPOST = file_get_contents('php://input');
+
+CONTROLAR SESION DE USUARIO:
+Se puede verificar la utilización del Token desde "Inspeccionar elemento" (F12) - Resources - Local Storage, con el fin de validar si está el user logueado o no, para cual se usa la variable: $auth.isAuthenticated().
+Se puede consultar el token porq metodo getPayLoad
+
+TP --- 
+Agregar a cada controller un "if" validando si la sesion esta activa
+LOGUEARSE MEDIANTE GITHUB (log mediante existencia de cuenta externa)
+
+PARCIAL:
+Json (array) como consulta de base de datos
+Logueo
+Entidad abstracta vista
+Routeo -vistas- 
+Pasaje de datos -sin manipular codigo del lado del servidor-
+Alta, baja y modificación a partir del array json (mockey)

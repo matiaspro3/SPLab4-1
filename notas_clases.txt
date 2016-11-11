@@ -1,0 +1,81 @@
+﻿-No vamos a utilizar mas los archivos ".php", a partir de ahora van a ser todos html, y la logica va a estar en los js de angular.
+-a travez de angular vamos a controlar los html
+-cada html esta asociado a 1 controller (podria estar asociado a mas) 
+-las directivas que comienzan con "ng" son de angular
+-las validaciones ahora se van a hacer en el html. al js ya van a llegar validados
+-las dos maneras de mostrar los datos del modelo es con {{}} o mediante bindeo con la directiva ng-model
+
+
+************************************************************************************************************
+Link: https://www.mockaroo.com/ generador de data test en formato JSON (entre otros)
+Link: http://www.mocky.io/ : simula el Api rest que retorna el JSON que genera el link anterior.
+Extension de google "CORS" -> para permitir el mocky desde otro server. (HTACCES) y evitar el error "Allow-origin"
+El parametro del controller "$http", cumple la función de asociarle el link que retorna el JSON.
+Ej.: $http.get('http://www.mocky.io/v2/57c8ab92120000e613e76a8e').
+
+.then() es la funcion que escucha el callback de la llamada asincronica (recibe una funcion) ->recibe 2 parametros!!(las dos funciones bien o mal, las mismas pueden llevar o no nombre asignado).	
+
+Investigar el resto de los metodos ademas del $http.get.
+
+ng-if = crear o destruir objetos
+ng-show= mostrar u ocultar objetos (tipo "only read")
+ng-disabled= mostrar (deshabilitado)
+
+Form State and INput State (Angular Validation -w3school-)
+
+******************************************************************************************
+CLASE SIGUIENTE: traer dos formularios (Login -validar pass min 7char, Alta)
+
+Form Alta (datos)- SOLO VALIDAR mediante ANGULAR (sin consultar con base de datos)
+-Nombre
+-Apellido
+-Eddad (number min y max)
+-Sexo (radio)
+-Dni (number)
+-Mail (email)
+-Estado (option-select)
+-Fecha nacimiento (fecha actual)
+-CLave (password)
+-Copia clave (password)
+-Lenguaje de Programación (checkbox)- sarasa
+Por defecto- todos deben estar en "error" (obligacion de completar por el usuario)
+
+Cambiar el estado de un objeto desde el controller
+OBJETIVO: a partir de los ejercicios de Curso de Ingreso (tps Sala de Juego), generar un login y un form alta.
+			La idea es que el usuario pueda ingresar y elegir el juego, una vez elegido sea identificado por puntaje (tabla de puntaje) de entre todos los usuarios registrados.
+
+ng-spiner: es el botón cargando cuando se dispara el evento (ej.: click) hasta que retorna la respuesta del servidor (averiguar w3school)
+**********************************************************************************************
+
+-directiva "ui-view" (en el index) me permite cargar paginas adentro.
+-Los ontroladores que defino en "index" van a ser padres del resto de los controladores.
+-Mis vistas abstractas tienen que tennes un "ui-view" (pueden tener mas de una con distinroto nombre).
+-ruteo: Para el usuario parece que estubiera navegando pero es un unico index.html
+-La idea es ir metiendo los templates html en los distintos subdirectorios dentro de mi proyecto asociados a las funciones que tienen.
+-mi pagina de inicio puede tener un menu y un footer "fijos" y en el medio le meto un div con "ui-view" y ahi se va actualizando con las distintas vistas utilizando herencia y rooteo.
+--Con el ruteo puedo verificar tambien si esta logueado.
+puedo referenciar desde el html a otro lado con la directiva de angular:
+<a ui-sref="persona.menu()">
+otra manera es con el state.go!
+(si solo quiero navegar sin pasar parametros puedo hacerlo con ui-ref si quiero usar parametros uso el .go)
+
+-github-- traer la pagina de "administrador", lo incluimos en el sitio de juegos e instalamos bower para traer las referencias.
+
+-El index.html va a estar siempre vacio a menos que querramos que algo aparezca en todo el resto del sistema (funciona como si fuera una abstracta).
+
+TP: El index vamos a tener que incorporar un nuevo bootstrap template 
+vamos a tener 3 vistas abstractas (una ya la tenemos "persona" a la que le tenemos que agregar las funcionalidades de ABM .. al igual que con ajax pero con $http).
+La otra vista va a tener "login y registro" que se puede dividir en 2 html (login = dos input text y un boton -- el registro 3= mail pass, pass2 y registrar).
+los botones logear y registrar tienen que disparar un obj json a los controladores.
+el control login va a consultar a la base si esxiste y el registrar va a guardar el usuario.
+Puedo opcionalmente tener el mismo template para login y registro cada uno con su controller o un solo controler para los 2 templates.
+
+La tercer vista va a ser una "abstracta de juegos"- hay que agarrar los juegos en angular,incluir los html en el sitio y apuntarlas con el rooteo.
+La vista juegos va a tener un menu al igual que persona y va a redirigir a los distintos juegos.
+los estilos de c/vista tienen que ser DISTINTOS
+
+La idea principal de todo es tener la logica armada y despues solo cambiando los templates y los ccs me tiene que funcionar.
+
+------------------
+social buttons:
+https://www.npmjs.com/package/bootstrap-social
