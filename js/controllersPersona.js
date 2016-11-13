@@ -5,26 +5,12 @@ app.controller('controlPersonaMenu', function($scope, $http) {
 
 });
 
-app.controller('controlMenu', function($scope, $http) {
-  $scope.DatoTest="**Menu**";
-});
-app.controller('controlInicio', function($scope, $http) {
-  $scope.DatoTest="**Menu**";
-  $scope.titulo="Inicio y presentacion de la WEB";
-  //TENGO QUE VALIDAR SI ESTA AUTENTICADO
-/*  if($auth.isAuthenticated())
-    //muestro los botones para que ingrese al sistema
-  else
-    //le pido que se loguee*/
-  
-});
 
 
 
 
 
-
-app.controller('controlPersona', function($scope, $http, $auth, $state) {
+app.controller('controlPersona', function($scope, $http, $auth, $state,factoryUserActual) {
    /*if(!$auth.isAuthenticated())
    {
     $scope.DatoTest="**NO TOKEN**";
@@ -32,75 +18,15 @@ app.controller('controlPersona', function($scope, $http, $auth, $state) {
     $state.go("inicio");
    }
 */
-});
 
 
-
-/*
-app.controller('controlPersonaVotacion', function($scope, $http, FileUploader, $state) {
-  $scope.persona={};
-  $scope.persona.fecha;
-  $scope.persona.dni;
-  $scope.persona.partido;
-  $scope.persona.sexo;
-  $scope.persona.foto;
-  //$scope.uploader=new FileUploader({url:'servidor/archivos.php'});
-$scope.uploader=new FileUploader({url:'PHP/nexo.php'});
-  $scope.Votar=function(){
-
-
-    console.log($scope.uploader.queue);
-      if($scope.uploader.queue[0]!=undefined)
-      {
-        var nombreFoto = $scope.uploader.queue[0]._file.name;
-        $scope.persona.foto=nombreFoto;
-      }
-
-      $scope.uploader.uploadAll();
-      console.log("persona a guardar:");
-      console.log($scope.persona);
-  
-   
-    
-    $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
-    .then(function(respuesta) {       
-         //aca se ejetuca si retorno sin errores 
-         alert("VOTO REGISTRADO!");       
-         console.log(respuesta.data);
-
-    },function errorCallback(response) {        
-        //aca se ejecuta cuando hay errores
-        console.log( response);           
-    });
-  }
-
-  $scope.uploader.onSuccessItem=function(item, response, status, headers)
-  {
-
-   /* $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
-    .then(function(respuesta) {       
-       //aca se ejetuca si retorno sin errores        
-     console.info("respuesta", respuesta.data);
-     alert("VOTO REGISTRADO!");
-     $state.go("inicio");
-   
-  },function errorCallback(response) {        
-      //aca se ejecuta cuando hay errores
-      console.log( response);           
-    });
-//**///
-/*
-  console.info("Ya guardé el archivo.", item, response, status, headers);
-  };
+   $scope.user = factoryUserActual.Logueado;
+   console.info("user personaaaa...",$scope.user );
 
 });
 
 
-
-
-*/
-
-app.controller('controlPersonaVotacion', function($scope, $http, FileUploader, $state) {
+app.controller('controlPersonaVotacion', function($scope, $http, FileUploader, $state,FactoryPersona) {
   $scope.persona={};
   $scope.persona.fecha;
   $scope.persona.dni=36666666;
@@ -162,7 +88,7 @@ $scope.uploader.onSuccessItem=function(item, response, status, headers)
       
 
    //$http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
-    $http.post('http://localhost/lab/ws/alta/' + JSON.stringify($scope.persona))
+   /* $http.post('http://localhost/lab/ws/alta/' + JSON.stringify($scope.persona))
 
     .then(function(respuesta) { 
 
@@ -176,7 +102,7 @@ $scope.uploader.onSuccessItem=function(item, response, status, headers)
       console.log( response);           
     });
 
-
+*/
 
    /* console.log("persona a guardar:");
     console.log($scope.persona);
@@ -191,6 +117,17 @@ $scope.uploader.onSuccessItem=function(item, response, status, headers)
         //aca se ejecuta cuando hay errores
         console.log( response);           
     });*/
+
+FactoryPersona.Alta($scope.persona).then(function(rta){
+    console.info("ALTA ookk...");
+     alert("VOTO REGISTRADO SLIM!");
+     $state.go("persona.grilla");
+    
+   });
+
+
+
+
   }
 
 
@@ -204,56 +141,68 @@ $scope.uploader.onSuccessItem=function(item, response, status, headers)
 
 
 
-app.controller('controlPersonaGrilla', function($scope, $http, $state, $auth) {
+app.controller('controlPersonaGrilla', function($scope, $http, $state, $auth,FactoryPersona) {
     
    
 
 
-  $scope.Traer=function(){
-    $http.get('PHP/nexo.php', { params: {accion :"traer"}})
+  $scope.Traer=function(){/*
+//    $http.get('PHP/nexo.php', { params: {accion :"traer"}})
+  $http.get('http://localhost/lab/ws/personas')
     .then(function(respuesta) {       
-
-           $scope.ListadoPersonas = respuesta.data.listado;
-           console.log(respuesta.data);
-
-      },function errorCallback(response) {
+           $scope.ListadoPersonas = respuesta.data;
+         console.info('listado de personas...',$scope.ListadoPersonas);
+    },function errorCallback(response) {
            $scope.ListadoPersonas= [];
           console.log( response);
           
      });
-  }
+  */
+
+   FactoryPersona.TraerTodas().then(function(rta){
+     $scope.ListadoPersonas= rta;
+//  console.info('funco la factory22..',$scope.ListadoPersonas);
+    });
+    
+    
+
+}
 
   $scope.Traer();
 
   $scope.Borrar=function(persona){
-    console.log("borrar"+persona.id);
-    $http.post("PHP/nexo.php",{ datos:{accion :"borrar", persona:persona, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}})
-    .success(function(data, status, headers, config) {
-        console.log("bien"+data);
-        $scope.Traer();
-      }).error(function(data, status, headers, config) {
-         console.log("mal"+data);
-    });
+  //  console.info("borrar...",persona.id);
+    //$http.post("PHP/nexo.php",{ datos:{accion :"borrar", persona:persona, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}})
 
+   FactoryPersona.Borrar(persona).then(function(rta){
+    console.info("borrarad ookk...");
+      $scope.Traer();
+   });
 
   }
 
-  $scope.Modificar=function(id){
+
+
+  $scope.Modificar=function(persona){
     
-    console.log("Modificar"+id);
-    $state.go("persona.modificarVotacion");
+    console.info("Modificar persona....",persona);
+    $state.go('persona.modificarVotacion', {objPersona:persona});
   }
 
 });
 
 
-app.controller('controlPersonaVotacionMOD', function($scope, $http, FileUploader, $state) {
+app.controller('controlPersonaVotacionMOD', function($scope, $http,FileUploader, $state,$stateParams, FactoryPersona) {
   $scope.persona={};
-  $scope.persona.fecha;
-  $scope.persona.dni;
-  $scope.persona.partido;
-  $scope.persona.sexo;
-  $scope.persona.foto='pordefecto.png';
+  $scope.persona.id = Number($stateParams.objPersona.id);
+  
+  
+  $scope.persona.dni = Number($stateParams.objPersona.dni);
+  $scope.persona.partido=$stateParams.objPersona.partido;
+   //$("#fechaNac").val($stateParams.objPersona.fecha);
+  $scope.persona.sexo=$stateParams.objPersona.sexo;
+  $scope.persona.foto=$stateParams.objPersona.foto;
+
  $scope.uploader=new FileUploader({url:'servidor/archivos.php'});
 
 
@@ -263,55 +212,46 @@ $scope.uploader.onAfterAddingFile = function(item) {
 
 $scope.uploader.onSuccessItem=function(item, response, status, headers)
   {
-
        $scope.uploader.onBeforeUploadItem(item);
-
  };
 
 
 
 
-  $scope.Votar=function(){
 
+  $scope.Modificar=function(){
+/*
+   console.info("persona a Modificar:...",$scope.persona);
 
-
-    console.log($scope.uploader.queue);
-      if($scope.uploader.queue[0]!=undefined)
-      {
-        var nombreFoto = $scope.uploader.queue[0]._file.name;
-        $scope.persona.foto= $scope.persona.dni+'.jpg';
-      }
-
-    
-
-      console.info("persona a guardar:   .......",$scope.persona);
-      
-
-       $http.post("PHP/nexo.php",{ datos:{accion :"borrar", persona:$scope.persona, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}})
-    .then(function(respuesta) {  
-     
-  },function errorCallback(response) {        
-     
-      console.log( response);           
-    });
-
-       $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
-    .then(function(respuesta) {  
-     alert("VOTO MODIFICADO!");
-     $state.go("persona.grilla");
-    
-  },function errorCallback(response) {        
-     
-      console.log( response);           
+    $http.put('http://localhost/lab/ws/modificar/' + JSON.stringify($scope.persona))
+    .then(function(respuesta) {        
+         console.info("MODIFICÓ BIEN", respuesta);
+         $state.go('persona.grilla');
+    },function errorCallback(response) {        
+        console.info("MODIFICÓ MAL", response);           
     });
 
 
+*/
+
+
+   FactoryPersona.Modificar($scope.persona).then(function(rta){
+    console.info("Modificar ookk...");
+      $state.go('persona.grilla');
+   });
 
 
 
   }
+$scope.BorrarFoto=function(){
+
+    if($scope.persona.foto!="pordefecto.png")
+            {
+                unlink("../fotos/".$$scope.persona.foto)
+        }else (alert('No puede elimiar la foto por defecto.'))
 
 
+}
 
 
   

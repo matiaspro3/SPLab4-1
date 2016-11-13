@@ -23,7 +23,7 @@ header('Access-Control-Allow-Origin: *');
  */
 require 'vendor/autoload.php';
 require '../PHP/clases/Personas.php';
-
+require '../PHP/clases/Usuarios.php';
 /**
  * Step 2: Instantiate a Slim application
  *
@@ -56,6 +56,18 @@ $app->get('/personas[/]', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/usuarios[/]', function ($request, $response, $args) {
+    $datos = usuario::TraerTodosLosUsuarios();
+    $response->write(json_encode($datos))   ;//INTERNAL SERVER ERROR 500 -> Porque le es6taba devolviendo una referencia a memoria del servidor (hay que pasar un "string" del objeto transformado a json!!)
+    //$response->write("Lista de usuarios");
+    
+    return $response;
+});
+
+
+
+
+
 $app->get('/usuario[/{id}[/{name}]]', function ($request, $response, $args) {
     $response->write("Datos usuario ");
     var_dump($args);
@@ -64,20 +76,40 @@ $app->get('/usuario[/{id}[/{name}]]', function ($request, $response, $args) {
 
 
 
+
+
+
+
 /* FORMA DE RECIBIR POR PARAMETROS UN OBJETO EN POST
     POST: Para crear recursos */
 $app->post('/alta/{objeto}', function ($request, $response, $args) {
     $persona = json_decode($args['objeto']);
-    $datos = Persona::InsertarPersona($persona);
-// agregar lo de nexo de mover la foto.
-    $response->write($datos);
-    //$response->write("Welcome to Slim!");
+  
+// mover foto
 
-    //$datos = Persona::InsertarPersona();
+            if($persona->foto!="pordefecto.png")
+            {
+                $rutaVieja="../servidor/usuarios/".$persona->foto;
+                $rutaNueva="../fotos/".$persona->foto;
+                copy($rutaVieja,$rutaNueva);
+            }
+            $datos = Persona::InsertarPersona($persona);
+// mover foto fin
+
+    $response->write($datos);
 
     return $response;
 });
 
+$app->post('/altaUser/{usuario}', function ($request, $response, $args) {
+    $persona = json_decode($args['usuario']);
+    $datos = usuario::InsertarUser($persona);
+
+
+    $response->write($datos);
+
+    return $response;
+});
 
 
 
@@ -95,11 +127,53 @@ $app->put('/modificar/{objeto}', function ($request, $response, $args) {
 
 // /* DELETE: Para eliminar recursos */
 $app->delete('/personas/{id}', function ($request, $response, $args) {
-    $datos = Persona::BorrarPersona($args['id']);
-    $response->write("borrar !: ");
+   
+   $obje=Persona::TraerUnaPersona($args['id'])   ;
+
+        if($obje->foto!="pordefecto.png")
+            {
+                unlink("../fotos/".$obje->foto);
+            }
+
+       
+$datos = Persona::BorrarPersona($args['id']);
+    $response->write("borrado !: ");
     //var_dump($args);
     return $response;
 });
+
+$app->delete('/usuario/{id}', function ($request, $response, $args) {
+   
+  /* //si pide foto 
+   $obje=Persona::TraerUnaPersona($args['id'])   ;
+
+  
+        if($obje->foto!="pordefecto.png")
+            {
+                unlink("../fotos/".$obje->foto);
+            }
+*/
+       
+$datos = usuario::BorrarUser($args['id']);
+    $response->write("borrado !: ");
+    //var_dump($args);
+    return $response;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Step 4: Run the Slim application
  *

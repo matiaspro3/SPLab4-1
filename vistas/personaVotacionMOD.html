@@ -9,15 +9,19 @@
       <form class=""  name="myForm" enctype="multipart/form-data">
         <label class="miEstilo" id="titulo">MODIFICAR VOTACION</label><br>
         
-        <input type="number" id="dni" name="dni" ng-model="persona.dni" placeholder="Ingrese su dni" required="true"><br>
+
+        Su DNI no puede Cambiar.<br>
+        <input type="number" id="dni" name="dni" ng-model="persona.dni" placeholder="Ingrese su dni" required="true" readonly><br>
         Sexo: M
         <input type="radio" name="sexo" ng-model="persona.sexo" value="m" required> F
         <input type="radio" name="sexo" ng-model="persona.sexo" value="f" required> <br>
 
 
-
-        <input type="date" id="fecha" name="fechaNac" ng-model="persona.fecha" placeholder="Fecha Nac. yyyy-mm-dd" 
+<!--   
+        <input type="date" id="fecha" name="fechaNac" ng-model="persona.fecha" placeholder="Fecha Nac. yyyy-mm-dd"  
         max="1998-01-02" min="1977-01-01" required>
+ -->
+    
 <br>
 
 
@@ -25,6 +29,38 @@
           <option value="Radicalismo">Radicalismo</option>
           <option value="Peronismo">Peronismo</option>
         </select><br> 
+
+
+
+
+
+
+
+
+   
+                    <div class="CajaInicio  animated  slideInUp">
+                            <h1 style="color:yellow;">Fotos Usuario</h1>
+                            <!-- id="listaPersonas" -->
+                             
+                                    
+                                    <tr  style="color:red;">
+                                        <!--<td><img  class='fotoGrilla' ng-src="{{persona.avatar}}" /></td>-->
+                                        <td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" height="100" width="100"/></td>
+                            <th>     </th>
+
+                                        <td><button class='btn btn-danger' name='Borrar' ng-click="BorrarFoto()">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
+                                        
+
+
+                                    </tr>
+                                        
+                                </table>
+                            </div>
+
+
+
+
+
 
 
 <div>
@@ -40,7 +76,7 @@
 
 <div >
     
-    <p>Cantidad de Fotos : {{ uploader.queue.length }}</p>
+    <p>Fotos </p>
 
 <table class='table table-hover table-responsive' align="center">
     <thead>
@@ -83,7 +119,7 @@
     </tbody>
 </table>
 
-<button  class="button-green" name="login" id="login" ng-disabled="myForm.$invalid" ng-click="Votar()"><span>VOTAR </span></button>
+<button  class="button-green" name="login" id="login" ng-disabled="myForm.$invalid" ng-click="Modificar()"><span>MODIFICAR </span></button>
 </form>
 </div>
         

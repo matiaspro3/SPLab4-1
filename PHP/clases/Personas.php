@@ -79,6 +79,7 @@ class Persona
 	}
 //--------------------------------------------------------------------------------//
 
+
 //--------------------------------------------------------------------------------//
 //--METODO DE CLASE
 	public static function TraerUnaPersona($idParametro) 
@@ -86,8 +87,8 @@ class Persona
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-	//	$consulta =$objetoAccesoDato->RetornarConsulta("select * from persona where id =:id");
-	$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from persona where id =:id");
+	//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':id', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
 		$personaBuscada= $consulta->fetchObject('persona');
@@ -119,18 +120,21 @@ class Persona
 	public static function ModificarPersona($persona)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-			/*$consulta =$objetoAccesoDato->RetornarConsulta("
+			$consulta =$objetoAccesoDato->RetornarConsulta("
 				update persona 
-				set nombre=:nombre,
-				apellido=:apellido,
+				set sexo=:sexo,
+				partido=:partido,
 				foto=:foto
 				WHERE id=:id");
-			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();*/ 
-			$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarPersona(:id,:nombre,:apellido,:foto)");
-			$consulta->bindValue(':id',$persona->id, PDO::PARAM_INT);
-			$consulta->bindValue(':nombre',$persona->nombre, PDO::PARAM_STR);
-			$consulta->bindValue(':apellido', $persona->apellido, PDO::PARAM_STR);
-			$consulta->bindValue(':foto', $persona->foto, PDO::PARAM_STR);
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+
+			//$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarPersona(:id,:nombre,:apellido,:foto)");
+		
+		$consulta->bindValue(':id', $persona->id, PDO::PARAM_STR);
+		$consulta->bindValue(':sexo', $persona->sexo, PDO::PARAM_STR);
+		$consulta->bindValue(':partido', $persona->partido, PDO::PARAM_STR);
+		$consulta->bindValue(':foto', $persona->foto, PDO::PARAM_STR);
+
 			return $consulta->execute();
 	}
 

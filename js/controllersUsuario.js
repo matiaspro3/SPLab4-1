@@ -1,36 +1,37 @@
 angular.module('abmapp.controllersUsuario', [])
 
-app.controller('controlPersonaMenu', function($scope, $http) {
-  $scope.DatoTest="**Menu**";
-
-});
 
 app.controller('controlMenu', function($scope, $http) {
   $scope.DatoTest="**Menu**";
 });
-app.controller('controlInicio', function($scope, $http) {
+app.controller('controlInicio', function($scope, $http,factoryUserActual) {
   $scope.DatoTest="**Menu**";
-  $scope.titulo="Inicio y presentacion de la WEB";
+  
   //TENGO QUE VALIDAR SI ESTA AUTENTICADO
 /*  if($auth.isAuthenticated())
     //muestro los botones para que ingrese al sistema
   else
     //le pido que se loguee*/
-  
+
+   $scope.user = factoryUserActual.Logueado;
+  console.info("user...",$scope.user );
 });
 
 
 
-app.controller('controlUsuario', function($scope, $http,$auth,$state) {
+app.controller('controlUsuario', function($scope, $http,$auth,$state,factoryUserActual) {
  if($auth.isAuthenticated()){
           $scope.selogueo=true;
+
         }
         else{
           $scope.selogueo=false;
         }
-
+  
+   $scope.user = factoryUserActual.Logueado;
+   console.info("userCONTROL...",$scope.user );
   $scope.Grilla=function(){
-     
+   
   $state.go("usuario.grilla");
 
 
@@ -47,48 +48,7 @@ app.controller('controlUsuario', function($scope, $http,$auth,$state) {
 
 
 
-
-
-
-
-app.controller('DirectivaCtrl', function($scope, data, i18nService, uiGridConstants) {
-           $scope.ola = "El titulo Scope";
-    
-  $scope.listadoDeBanderas = [];
-
-
- 
-    console.info("FactoryConServicioBandera", FactoryConServicioBandera);
-
-    var json;
- 
-
-
-   FactoryConServicioBandera.traerTodos().then(function(rta){
-console.info("sadasdsadsa", rta);
-      $scope.listadoDeBanderas = rta.data.Paises;
-      console.info($scope.listadoDeBanderas);
-    });
-    
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.controller('controlUsuarioMenu', function($scope, $http,$auth,$state) {
+app.controller('controlUsuarioMenu', function($scope, $http,$auth,$state,factoryUserActual) {
         
   if($auth.isAuthenticated()){
           $scope.selogueo=true;
@@ -101,18 +61,22 @@ app.controller('controlUsuarioMenu', function($scope, $http,$auth,$state) {
 
   $scope.Desloguearse = function(){
         $auth.logout();
-
+$scope.user =" ";
+factoryUserActual.Logueado= " ";
      $state.go("inicio");
 }
 
 });
 
-app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state) {
+app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state,factoryUserActual) {
 
   $scope.usuario = {};
-  $scope.usuario.usuario = "";
-  $scope.usuario.dni = "";
-  $scope.usuario.password = "";
+  $scope.usuario.usuario = "lala";
+  $scope.usuario.dni = 5656;
+  $scope.usuario.password = 2222;
+
+
+
 
   $scope.authenticate = function(provider) {
       $auth.authenticate(provider)
@@ -141,6 +105,8 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state) {
         if($auth.isAuthenticated()){
           console.info("token", $auth.getPayload());
           alert("LOGUEADO!");
+            factoryUserActual.Logueado=$scope.usuario;
+
           $state.go("inicio");
         }
         else{
@@ -161,17 +127,14 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state) {
 
 });
 
-app.controller('controlUsuarioRegistrarse', function($scope, $http, FileUploader, $state) {
-  
- 
+app.controller('controlUsuarioRegistrarse', function($scope, $http, FileUploader, $state,factoryUserActual) {
   
 
   $scope.Guardar=function(){
   
       console.log("usuario a guardar:");
       console.log($scope.usuario);
-
-
+/*
     $http.post('PHP/nexo.php', { datos: {accion :"insertarUser",usuario:$scope.usuario}})
     .then(function(respuesta) {       
        //aca se ejetuca si retorno sin errores        
@@ -184,21 +147,31 @@ app.controller('controlUsuarioRegistrarse', function($scope, $http, FileUploader
     });
 
   console.info("Ya guardé el archivo.");
+ 
 
+*/
 
+factoryUserActual.Alta($scope.usuario).then(function(rta){
+    console.info("ALTA ookk...");
+     alert("User Registrado");
+   $state.go("inicio");
+    
+   });
 
-  }
+}
 
 });
 
 
 
-app.controller('controlUsuarioGrilla', function($scope, $http, $state, $auth) {
+app.controller('controlUsuarioGrilla', function($scope, $http, $state, $auth,factoryUserActual) {
     
    
 
 
   $scope.Traer=function(){
+
+/*
     $http.get('PHP/nexo.php', { params: {accion :"traerUser"}})
     .then(function(respuesta) {       
 
@@ -210,12 +183,20 @@ app.controller('controlUsuarioGrilla', function($scope, $http, $state, $auth) {
           console.log( response);
           
      });
+  
+*/
+
+   factoryUserActual.TraerTodas().then(function(rta){
+        $scope.ListadoUsers = rta;
+  console.info('funco la factory usuariossss..',$scope.ListadoUsers);
+    });
+
   }
 
   $scope.Traer();
 
   $scope.Borrar=function(usuario){
-    console.log("borrar"+usuario.id);
+/*    console.log("borrar"+usuario.id);
     $http.post("PHP/nexo.php",{ datos:{accion :"borrarUser", usuario:usuario, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}})
     .success(function(data, status, headers, config) {
         console.log("bien"+data);
@@ -223,6 +204,15 @@ app.controller('controlUsuarioGrilla', function($scope, $http, $state, $auth) {
       }).error(function(data, status, headers, config) {
          console.log("mal"+data);
     });
+*/
+
+
+   factoryUserActual.Borrar(usuario).then(function(rta){
+  console.info('boreeeeeee  usuariossss..');
+        $scope.Traer();
+    });
+
+
 
 
   }
@@ -236,4 +226,27 @@ app.controller('controlUsuarioGrilla', function($scope, $http, $state, $auth) {
 
 
 
+
+
+
+app.controller('DirectivaCtrl', function($scope, data, i18nService, uiGridConstants) {
+           $scope.ola = "El titulo Scope";
+    
+  $scope.listadoDeBanderas = [];
+
+
+ 
+    console.info("FactoryConServicioBandera", FactoryConServicioBandera);
+
+    var json;
+ 
+
+
+   FactoryConServicioBandera.traerTodos().then(function(rta){
+console.info("sadasdsadsa", rta);
+      $scope.listadoDeBanderas = rta.data.Paises;
+      console.info($scope.listadoDeBanderas);
+    });
+    
+});
 

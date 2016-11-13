@@ -32,6 +32,13 @@ return {scope : {mibandera : '=banderita'}, replace : true, restrict : "MEAC", t
 
 
 
+.directive('nombreUser', function(factoryUserActual) {
+
+return {scope : {useractual : '=usuarito'}, replace : true, restrict : "MEAC", templateUrl : "templates/nombreUser.html"};
+
+})
+
+
 
 
 //fin

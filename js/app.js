@@ -1,9 +1,9 @@
 
-var app = angular.module('abmapp', ['ui.router', 'abmapp.controllersPersona', 'abmapp.controllersUsuario', 'satellizer', 'angularFileUpload', 'validation.match']);
-
+//var app = angular.module('abmapp', ['ui.router','abmapp.factoryPersona', 'abmapp.servicioABM','abmapp.controllersPersona', 'abmapp.controllersUsuario', 'satellizer', 'angularFileUpload', 'validation.match']);
+var app = angular.module('abmapp', ['ui.router','abmapp.controllersPersona', 'abmapp.controllersUsuario', 'satellizer', 'angularFileUpload', 'validation.match']);
 app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
   
-  $authProvider.loginUrl = 'Parcial 2 v0.001/PHP/auth.php'; //Ruta del archivo auth que esta en jwt y direcciona a PHP
+  $authProvider.loginUrl = 'lab/PHP/auth.php'; //Ruta del archivo auth que esta en jwt y direcciona a PHP
   $authProvider.tokenName = 'ElNombreDelToken'; //nombre largo
   $authProvider.tokenPrefix = 'Aplicacion'; //sarasa
   $authProvider.authHeader = 'data';
@@ -60,6 +60,9 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
       .state('persona.modificarVotacion', {
                       url: '/ModificarVotacion',
                              cache:false,
+                              params: {
+                  objPersona: null
+                },
                       views: {
                           'contenido': {
                               templateUrl: 'vistas/personaVotacionMOD.html',
@@ -150,6 +153,6 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
 
 
-             $urlRouterProvider.otherwise('/inicio2');
+             $urlRouterProvider.otherwise('/inicio');
 });
 
