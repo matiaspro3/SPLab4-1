@@ -1,5 +1,5 @@
 angular
-.module('ABMangularPHP')
+.module('abmapp')
 
 .directive('utnSaludo', function() {
 

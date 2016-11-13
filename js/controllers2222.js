@@ -1,4 +1,4 @@
-angular.module('ABMangularPHP.controllers', [])
+angular.module('abmapp.controllers', [])
 
 app.controller('controlPersonaMenu', function($scope, $http) {
   $scope.DatoTest="**Menu**";

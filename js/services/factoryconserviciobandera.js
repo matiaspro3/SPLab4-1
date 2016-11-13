@@ -1,5 +1,5 @@
 angular
-  .module('ABMangularPHP')
+  .module('abmapp')
   .factory('FactoryConServicioBandera', function (bandera) {
     var objeto = {};
     objeto.nombre = 'FactoryDeBanderas';

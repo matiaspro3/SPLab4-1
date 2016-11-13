@@ -1,5 +1,5 @@
 angular
-  .module('app')
+  .module('abmapp')
   .factory('FactoryBandera', function ($http) {
     var objeto = {};
     objeto.nombre = 'FactoryDeBanderas';

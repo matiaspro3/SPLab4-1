@@ -1,5 +1,5 @@
 angular
-  .module('ABMangularPHP')
+  .module('abmapp')
   .service('bandera', function ($http, FactoryRutas) {
     this.Nombre="servicio bandera";
 

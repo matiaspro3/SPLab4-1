@@ -1,5 +1,5 @@
 angular
-  .module('app')
+  .module('abmapp')
   .factory('FactoryRutas', function () {
     var objeto = {};
     objeto.nombre = 'Factory de Rutas';

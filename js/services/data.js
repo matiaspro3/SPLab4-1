@@ -1,5 +1,5 @@
 angular
-  .module('app')
+  .module('abmapp')
   .service('data', function ($http) {
     function extraerData (data){
       return data.data;

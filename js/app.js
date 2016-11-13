@@ -1,5 +1,5 @@
 
-var app = angular.module('ABMangularPHP', ['ui.router', 'ABMangularPHP.controllers', 'satellizer', 'angularFileUpload', 'validation.match']);
+var app = angular.module('abmapp', ['ui.router', 'abmapp.controllersPersona', 'abmapp.controllersUsuario', 'satellizer', 'angularFileUpload', 'validation.match']);
 
 app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
   
@@ -24,18 +24,21 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
       .state('inicio', {
                 url : '/inicio',
-                templateUrl : 'vistas/inicio.html',
+                cache:false,
+                templateUrl : 'vistas/inicio2.html',
                 controller : 'controlInicio'
             })
       .state('persona', {
                 url : '/persona',
                 abstract:true,
+                       cache:false,
                 templateUrl : 'vistas/abstractaPersona.html',
                 controller : 'controlPersona'
             })
   
       .state('persona.menu', {
                 url: '/menu',
+                       cache:false,
                 views: {
                     'contenido': {
                         templateUrl: 'vistas/personaMenu.html',
@@ -45,6 +48,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             })
       .state('persona.votacion', {
                 url: '/votacion',
+                       cache:false,
                 views: {
                     'contenido': {
                         templateUrl: 'vistas/personaVotacion.html',
@@ -55,6 +59,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
       .state('persona.modificarVotacion', {
                       url: '/ModificarVotacion',
+                             cache:false,
                       views: {
                           'contenido': {
                               templateUrl: 'vistas/personaVotacionMOD.html',
@@ -66,6 +71,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
       .state('persona.grilla', {
                 url: '/grilla',
+                       cache:false,
                 views: {
                     'contenido': {
                         templateUrl: 'vistas/personaGrilla.html',
@@ -79,6 +85,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
       .state('usuario', {
                 url : '/usuario',
                 abstract:true,
+                       cache:false,
                 templateUrl : 'vistas/abstractaUsuario.html',
                 controller : 'controlUsuario'
             })
@@ -86,6 +93,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
       .state('usuario.menu', {
                 url: '/usermenu',
+                       cache:false,
                 views: {
                     'contenido': {
                         templateUrl: 'vistas/usuarioMenu.html',
@@ -95,6 +103,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             })
       .state('usuario.login', {
                 url: '/login',
+                       cache:false,
                 views: {
                     'contenido': {
                         templateUrl: 'vistas/usuarioLogin.html',
@@ -104,6 +113,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             })
       .state('usuario.registrarse', {
                 url: '/registrarse',
+                       cache:false,
                 views: {
                     'contenido': {
                         templateUrl: 'vistas/usuarioRegistrarse.html',
@@ -113,6 +123,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             })
     .state('usuario.grilla', {
                 url: '/grilla',
+                       cache:false,
                 views: {
                     'contenido': {
                         templateUrl: 'vistas/usuarioGrilla.html',
@@ -124,6 +135,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
 .state('directiva', {
       url: '/directiva',
+             cache:false,
       templateUrl: 'vistas/directiva.html',
       controller:'DirectivaCtrl'
     })
@@ -138,6 +150,6 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
 
 
-             $urlRouterProvider.otherwise('/inicio');
+             $urlRouterProvider.otherwise('/inicio2');
 });
 

@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 	angular
-		.module('ABMangularPHP')
+		.module('abmapp')
 		.directive('ngThumb', ['$window', function($window) {
         var helper = {
             support: !!($window.FileReader && $window.CanvasRenderingContext2D),
