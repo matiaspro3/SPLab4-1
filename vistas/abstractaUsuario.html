@@ -16,13 +16,13 @@
 		         	</a>
 		         </li>
 
-		         <li  ng-if='!selogueo'  class="btn btn-success animated bounceInLeft" >
+		         <li ng-if="user.perfil =='admin'"  ng-if='!selogueo'  class="btn btn-success animated bounceInLeft" >
 		         	<a style="color:blue" ui-sref="usuario.registrarse()"> 
 		         		<span class="glyphicon glyphicon-th"  style="color:red;">&nbsp;</span>
-		         			Registrarse</a>
+		         			Registrar</a>
 		         		</li>
 
-						 <li  ng-if='selogueo'  class="btn btn-primary animated bounceInLeft" >
+						 <li   ng-if="user.perfil =='admin'"  class="btn btn-primary animated bounceInLeft" >
 							         	<a ng-click="Grilla()"> 
 							         		<span class="glyphicon glyphicon-list-alt" >&nbsp;</span>
 							         			Listado de Usuarios</a>

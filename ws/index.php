@@ -114,9 +114,16 @@ $app->post('/altaUser/{usuario}', function ($request, $response, $args) {
 
 
 // /* PUT: Para editar recursos */
-$app->put('/modificar/{objeto}', function ($request, $response, $args) {
+$app->put('/modificarPerson/{objeto}', function ($request, $response, $args) {
     $persona = json_decode($args['objeto']);
     $datos = Persona::ModificarPersona($persona);
+    $response->write($datos);
+    //var_dump($args);
+    return $response;
+});
+$app->put('/modificarUser/{objeto}', function ($request, $response, $args) {
+    $usuario = json_decode($args['objeto']);
+    $datos = usuario::ModificarUser($usuario);
     $response->write($datos);
     //var_dump($args);
     return $response;

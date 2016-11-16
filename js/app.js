@@ -124,6 +124,21 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                     }
                 }
             })
+
+      .state('usuario.modificar', {
+                      url: '/Modificar',
+                             cache:false,
+                              params: {
+                  objUser: null
+                },
+                      views: {
+                          'contenido': {
+                              templateUrl: 'vistas/usuarioRegistrarseMOD.html',
+                              controller : 'usuarioRegistrarseMOD'
+                          }
+                      }
+                  })
+
     .state('usuario.grilla', {
                 url: '/grilla',
                        cache:false,

@@ -16,8 +16,10 @@
 											<th>  Usuario   </th>				
 											<th>  Dni     </th>
 											<th>  Password     </th>
+											<th>  Perfil     </th>
 											
 											<th>  BORRAR     </th>
+											<th>  EDITAR     </th>
 
 										<!--	<th>  MODIFICAR  </th>-->
 
@@ -32,6 +34,7 @@
 										<td>{{usuario.usuario}}</td>
 										<td>{{usuario.dni}}</td>
 										<td>{{usuario.password}}</td>
+										<td>{{usuario.tipo}}</td>
 										
 											<!--	ng-if se logue!!
 										<td><button ng-if='selogueo' class='btn btn-danger' name='Borrar' ng-click="Borrar(persona)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
@@ -40,8 +43,8 @@
 												-->		
 										<td><button class='btn btn-danger' name='Borrar' ng-click="Borrar(usuario)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
 										
-									<!--	<td><button class='btn btn-warning' name='Modificar' ng-click="Modificar(usuario)"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
-									-->
+										<td><button class='btn btn-warning' name='Modificar' ng-click="Modificar(usuario)"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
+									
 
 
 									</tr>

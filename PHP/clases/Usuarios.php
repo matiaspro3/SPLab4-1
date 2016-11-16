@@ -120,21 +120,23 @@ class usuario
 		
 	}
 	
-	public static function ModificarPersona($persona)
+	public static function ModificarUser($idParametro)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-			/*$consulta =$objetoAccesoDato->RetornarConsulta("
-				update persona 
-				set nombre=:nombre,
-				apellido=:apellido,
-				foto=:foto
+			$consulta =$objetoAccesoDato->RetornarConsulta("
+				update usuarios 
+				set usuario=:nombre,
+				dni=:dni,
+				password=:pass,
+				tipo = :tipo
 				WHERE id=:id");
-			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();*/ 
-			$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarPersona(:id,:nombre,:apellido,:foto)");
-			$consulta->bindValue(':id',$persona->id, PDO::PARAM_INT);
-			$consulta->bindValue(':nombre',$persona->nombre, PDO::PARAM_STR);
-			$consulta->bindValue(':apellido', $persona->apellido, PDO::PARAM_STR);
-			$consulta->bindValue(':foto', $persona->foto, PDO::PARAM_STR);
+		//	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();*/ 
+		//	$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarPersona(:id,:nombre,:apellido,:foto)");
+			$consulta->bindValue(':id',$idParametro->id, PDO::PARAM_INT);
+			$consulta->bindValue(':nombre',$idParametro->usuario, PDO::PARAM_STR);
+			$consulta->bindValue(':dni', $idParametro->dni, PDO::PARAM_STR);
+			$consulta->bindValue(':pass', $idParametro->password, PDO::PARAM_STR);
+			$consulta->bindValue(':tipo', $idParametro->perfil, PDO::PARAM_STR);
 			return $consulta->execute();
 	}
 

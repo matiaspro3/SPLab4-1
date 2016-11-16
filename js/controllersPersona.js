@@ -20,6 +20,10 @@ app.controller('controlPersona', function($scope, $http, $auth, $state,factoryUs
 */
 
 
+
+
+
+
    $scope.user = factoryUserActual.Logueado;
    console.info("user personaaaa...",$scope.user );
 

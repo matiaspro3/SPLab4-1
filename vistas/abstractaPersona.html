@@ -7,16 +7,16 @@
 		         		 Inicio
 		         	</a>
 		         </li>
-		         <li class="btn btn-warning animated tada" >
+		         <li  ng-if="user.perfil !='comp'" class="btn btn-warning animated tada" >
 		         	<a ui-sref="persona.votacion()">
 		         		<span class="glyphicon glyphicon-plus-sign">&nbsp;</span>
-		         		Votar
+		         		Comprar
 		         	</a>
 		         </li>
 		         <li  class="btn btn-info animated rubberBand" >
 		         	<a  style="color:blue" ui-sref="persona.grilla()"> 
 		         		<span  style="color:blue" class="glyphicon glyphicon-th" >&nbsp;</span>
-		         			Grilla Votos</a>
+		         			Grilla Productos</a>
 		         		</li>
 		        	
  				 <div ><nombre-user  usuarito=user.usuario><nombre-user>                    </div>

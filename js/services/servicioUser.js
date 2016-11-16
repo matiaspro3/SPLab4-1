@@ -80,10 +80,10 @@ angular.module('abmapp')
     }
   
 
-    function Modificar(persona){
+    function Modificar(usuario){
       
       
-    return    $http.put('http://localhost/lab/ws/modificar/' + JSON.stringify(persona))
+    return    $http.put('http://localhost/lab/ws/modificarUser/' + JSON.stringify(usuario))
     .then(function(respuesta) {       
       
     return respuesta.data;

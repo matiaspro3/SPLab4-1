@@ -83,7 +83,7 @@ angular.module('abmapp')
     function Modificar(persona){
       
       
-    return    $http.put('http://localhost/lab/ws/modificar/' + JSON.stringify(persona))
+    return    $http.put('http://localhost/lab/ws/modificarPerson/' + JSON.stringify(persona))
     .then(function(respuesta) {       
       
     return respuesta.data;

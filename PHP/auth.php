@@ -18,7 +18,8 @@ if ($log!=false){
 	$token["usuario"] = $log->usuario;
 	$token["dni"] = $log->dni;
 	$token["pass"] = $log->password;
-	$token["perfil"]="admin";
+	//$token["perfil"]="admin";
+	$token["perfil"]=$log->tipo;;
 	$token["iat"]=time();
 	$token["exp"]=time()+60;
 

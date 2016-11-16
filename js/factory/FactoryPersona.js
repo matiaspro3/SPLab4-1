@@ -3,7 +3,7 @@ angular
   .factory('FactoryPersona', function (servicioABM) {
     var objeto = {};
     objeto.nombre = 'FactoryDePersonas';
-    objeto.traerTodas = TraerTodas;
+    objeto.TraerTodas = TraerTodas;
     objeto.Borrar = Borrar;
     objeto.Alta = Alta;
     objeto.Modificar = Modificar;

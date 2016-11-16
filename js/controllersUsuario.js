@@ -71,9 +71,39 @@ factoryUserActual.Logueado= " ";
 app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state,factoryUserActual) {
 
   $scope.usuario = {};
-  $scope.usuario.usuario = "lala";
-  $scope.usuario.dni = 5656;
-  $scope.usuario.password = 2222;
+//  $scope.usuario.usuario = "lala";
+// $scope.usuario.dni = 5656;
+//  $scope.usuario.password = 2222;
+
+  $scope.Admin = function(){
+  $scope.usuario.usuario = "matias";
+  $scope.usuario.dni = 32935835;
+  $scope.usuario.password = 4444;
+  $scope.usuario.tipo= "admin";
+
+  }
+
+
+
+
+  $scope.Vende = function(){
+  $scope.usuario.usuario = "florinda";
+  $scope.usuario.dni = 7878;
+  $scope.usuario.password = 7878;
+  $scope.usuario.tipo= "vend"; 
+  }
+
+
+
+
+  $scope.Compra = function(){
+  $scope.usuario.usuario = "pedro";
+  $scope.usuario.dni = 1212;
+  $scope.usuario.password = 4545;
+ $scope.usuario.tipo= "comp"; 
+  }
+
+
 
 
 
@@ -104,15 +134,26 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state,fact
         //CHEQUEO DE SESION ACTIVA O NO
         if($auth.isAuthenticated()){
           console.info("token", $auth.getPayload());
+          factoryUserActual.Logueado= $auth.getPayload();
+          
+          //$scope.userActual= $auth.getPayload();
+          //console.info("$scope.userActual", $scope.userActual);
+          //console.info("$scope.userActual.perfil", $scope.userActual.perfil);
+          
+
           alert("LOGUEADO!");
-            factoryUserActual.Logueado=$scope.usuario;
+            //factoryUserActual.Logueado=$scope.usuario;
 
           $state.go("inicio");
         }
         else{
           console.info("no token", $auth.getPayload());
-          alert("Usuario NO registrado.");
-          $state.go("usuario.registrarse");
+          //alert("Usuario NO registrado.");
+          //$state.go("usuario.registrarse");
+          alert("Usuario NO registrado.Contacte al ADMIN para que lo ingrese");
+          $state.go("inicio");
+
+
         }
           
       // Redirect user here after a successful log in.
@@ -124,6 +165,16 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state,fact
     });
     
   }
+
+
+
+
+
+
+
+
+
+
 
 });
 
@@ -217,10 +268,12 @@ app.controller('controlUsuarioGrilla', function($scope, $http, $state, $auth,fac
 
   }
 
-  $scope.Modificar=function(id){
+  $scope.Modificar=function(usuario){
     
-    console.log("Modificar"+id);
+    //console.info("Modificar persona....",usuario);
+    $state.go('usuario.modificar', {objUser:usuario});
   }
+
 
 });
 
@@ -249,4 +302,36 @@ console.info("sadasdsadsa", rta);
     });
     
 });
+
+
+
+
+app.controller('usuarioRegistrarseMOD', function($scope, $http,FileUploader, $state,$stateParams, factoryUserActual) {
+  $scope.user={};
+
+  $scope.user.id = Number($stateParams.objUser.id);
+  console.info($scope.user);
+  $scope.user.usuario = $stateParams.objUser.usuario;
+  $scope.user.dni = Number($stateParams.objUser.dni);
+  $scope.user.password = Number($stateParams.objUser.password);
+  $scope.user.perfil = $stateParams.objUser.tipo;
+
+
+
+
+
+
+  $scope.Modificar=function(){
+
+
+   factoryUserActual.Modificar($scope.user).then(function(rta){
+    console.info("Modificar ookk...");
+      $state.go('usuario.grilla');
+  }
+)}
+
+
+  });
+ 
+
 
