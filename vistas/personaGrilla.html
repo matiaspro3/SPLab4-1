@@ -10,6 +10,27 @@
 							<h1 style="color:yellow;">Listado de Productos.</h1>
 							<!-- id="listaPersonas" -->
 								
+
+			<label style="color:yellow;">Busqueda en Particular</label>
+						 
+						
+						<input class="barraSearch" type="search" ng-model="buscarTipo.dni" placeholder="Buscar Dni">
+						<input class="barraSearch" type="search" ng-model="buscarTipo.partido" placeholder="Buscar Partido"	>
+						<input class="barraSearch" type="search" ng-model="buscarTipo.fecha" placeholder="Buscar por Fecha"	>
+							<li style="color:blue;" class="animate-repeat" ng-if="resultado.length == 0">
+
+							      <strong>No existen coincidencias</strong>
+							    </li>
+
+
+
+
+
+
+
+
+
+
 								<table class='table table-hover table-responsive ' id="listaPersonas">
 									<thead>
 										<tr>
@@ -46,7 +67,7 @@
 										-->
 
 									<tbody>
-												<tr prod-list  ng-repeat="persona in ListadoPersonas" obj="persona"></tr>
+												<tr prod-list  ng-repeat="persona in ListadoPersonas  | orderBy:'dni' | filter:buscarTipo as resultado"  obj="persona"></tr>
 
 									</tbody>
 

@@ -10,6 +10,23 @@
 							<h1 style="color:yellow;">Listado de Usuarios</h1>
 							<!-- id="listaPersonas" -->
 								
+	<!-- BUSQUEDA -->
+
+			<label style="color:yellow;">Busqueda en Particular</label>
+						 
+						<input class="barraSearch" type="search" ng-model="buscarTipo.usuario" placeholder="Buscar Nombre">
+						<input class="barraSearch" type="search" ng-model="buscarTipo.dni" placeholder="Buscar Dni">
+						<input class="barraSearch" type="search" ng-model="buscarTipo.tipo" placeholder="Buscar Perfil">
+							<li style="color:blue;" class="animate-repeat" ng-if="resultado.length == 0">
+
+							      <strong>No existen coincidencias</strong>
+							    </li>
+
+
+
+<!-- BUSQUEDA -->
+
+
 								<table class='table table-hover table-responsive ' id="listaPersonas">
 									<thead>
 										<tr>
@@ -42,7 +59,7 @@
 									</tr>
 									-->
 									<tbody>
-												<tr user-list  ng-repeat="usuario in ListadoUsers" obj="usuario"></tr>
+												<tr user-list  ng-repeat="usuario in ListadoUsers | orderBy:'usuario' | filter:buscarTipo as resultado" obj="usuario"></tr>
 
 									</tbody>
 	
@@ -62,4 +79,15 @@
 						</div>
 		</div></div>
 </body>
-</html>
+</html><!--
+<label>Any: <input ng-model="search.$"></label> <br>
+<label>Name only <input ng-model="search.name"></label><br>
+<label>Phone only <input ng-model="search.phone"></label><br>
+<label>Equality <input type="checkbox" ng-model="strict"></label><br>
+<table id="searchObjResults">
+  <tr><th>Name</th><th>Phone</th></tr>
+  <tr ng-repeat="friendObj in friends | filter:search:strict">
+    <td>{{friendObj.name}}</td>
+    <td>{{friendObj.phone}}</td>
+-->
+

@@ -167,7 +167,7 @@ app.controller('controlPersonaGrilla', function($scope, $http, $state, $auth,Fac
 
    FactoryPersona.TraerTodas().then(function(rta){
      $scope.ListadoPersonas= rta;
-//  console.info('funco la factory22..',$scope.ListadoPersonas);
+  console.info('funco la factory22..',$scope.ListadoPersonas);
     });
     
     

@@ -21,7 +21,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
     });
 
   $stateProvider
-
+ 
       .state('inicio', {
                 url : '/inicio',
                 cache:false,
