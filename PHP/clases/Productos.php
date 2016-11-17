@@ -1,14 +1,13 @@
 <?php
 require_once"accesoDatos.php";
-class usuario
+class Productos
 {
 //--------------------------------------------------------------------------------//
 //--ATRIBUTOS
-	public $usuario;
-	public $dni;
- 	public $password;
-  	public $partido;
-  	public $foto;
+	public $codigo;
+	public $nombre;
+	public $fecha;
+	public $foto;
 
 
 //--------------------------------------------------------------------------------//
@@ -16,17 +15,14 @@ class usuario
 //--------------------------------------------------------------------------------//
 //--GETTERS Y SETTERS
 
-	public function Getdni()
+	public function GetFecha()
 	{
-		return $this->dni;
+		return $this->fecha;
 	}
-	public function Getpassword()
+
+	public function GetDni()
 	{
-		return $this->password;
-	}
-	public function Getusuario()
-	{
-		return $this->usuario;
+		return $this->codigo;
 	}
 	public function GetFoto()
 	{
@@ -37,21 +33,21 @@ class usuario
 		return $this->partido;
 	}
 
-	public function Setdni($valor)
+	public function SetFecha($valor)
 	{
-		$this->dni = $valor;
+		$this->fecha = $valor;
 	}
-	public function Setpassword($valor)
+	public function SetSexo($valor)
 	{
-		$this->password = $valor;
+		$this->sexo = $valor;
 	}
 	public function Setpartido($valor)
 	{
 		$this->partido = $valor;
 	}
-	public function Setusuario($valor)
+	public function SetDni($valor)
 	{
-		$this->usuario = $valor;
+		$this->dni = $valor;
 	}
 	public function SetFoto($valor)
 	{
@@ -59,14 +55,12 @@ class usuario
 	}
 //--------------------------------------------------------------------------------//
 //--CONSTRUCTOR
-	public function __construct($usuario=NULL)
+	public function __construct($dni=NULL)
 	{
-		if($usuario != NULL){
-			$obj = Persona::TraerUnaPersona($usuario);
-			
-			$this->apellido = $obj->apellido;
+		if($dni != NULL){
+			$obj = Persona::TraerUnaPersona($dni);
 			$this->nombre = $obj->nombre;
-			$this->usuario = $usuario;
+			$this->dni = $dni;
 			$this->foto = $obj->foto;
 		}
 	}
@@ -75,44 +69,41 @@ class usuario
 //--TOSTRING	
   	public function ToString()
 	{
-	  	return $this->apellido."-".$this->nombre."-".$this->usuario."-".$this->foto;
+	  	return $this->apellido."-".$this->nombre."-".$this->dni."-".$this->foto;
 	}
 //--------------------------------------------------------------------------------//
 
+
 //--------------------------------------------------------------------------------//
 //--METODO DE CLASE
-	public static function TraerUnUser($usuario) 
+	public static function TraerUnProducto($idParametro) 
 	{	
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		//$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios where usuario =:usuario");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from producto where codigo =:id");
 	//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
-
-		$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios where usuario =:usuario and email=:email and password=:password ");
-		$consulta->bindValue(':usuario', $usuario->usuario, PDO::PARAM_INT);
-		$consulta->bindValue(':email', $usuario->email, PDO::PARAM_INT);
-		$consulta->bindValue(':password', $usuario->password, PDO::PARAM_INT);
+		$consulta->bindValue(':id', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
-		$personaBuscada= $consulta->fetchObject('usuario');
+		$personaBuscada= $consulta->fetchObject('producto');
 		return $personaBuscada;	
 					
 	}
 	
-	public static function TraerTodosLosUsuarios()
+	public static function TraerTodos()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from producto");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
-		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario");	
+		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "producto");	
 		return $arrPersonas;
 	}
 	
-	public static function BorrarUser($idParametro)
+	public static function Borrar($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("delete from usuarios	WHERE id=:id");	
+		$consulta =$objetoAccesoDato->RetornarConsulta("delete from producto WHERE codigo=:id");	
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL BorrarPersona(:id)");	
 		$consulta->bindValue(':id',$idParametro, PDO::PARAM_INT);		
 		$consulta->execute();
@@ -120,23 +111,24 @@ class usuario
 		
 	}
 	
-	public static function ModificarUser($idParametro)
+	public static function Modificar($producto)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
-				update usuarios 
-				set usuario=:nombre,
-				email=:email,
-				password=:pass,
-				tipo = :tipo
-				WHERE id=:id");
-		//	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();*/ 
-		//	$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarPersona(:id,:nombre,:apellido,:foto)");
-			$consulta->bindValue(':id',$idParametro->id, PDO::PARAM_INT);
-			$consulta->bindValue(':nombre',$idParametro->usuario, PDO::PARAM_STR);
-			$consulta->bindValue(':email', $idParametro->email, PDO::PARAM_STR);
-			$consulta->bindValue(':pass', $idParametro->password, PDO::PARAM_STR);
-			$consulta->bindValue(':tipo', $idParametro->perfil, PDO::PARAM_STR);
+				update producto 
+				set nombre=:nombre,
+				fecha=:fecha,
+				foto=:foto
+				WHERE codigo=:id");
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+
+			//$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarPersona(:id,:nombre,:apellido,:foto)");
+		
+		$consulta->bindValue(':id', $producto->id, PDO::PARAM_STR);
+		$consulta->bindValue(':fecha', $producto->fecha, PDO::PARAM_STR);
+		$consulta->bindValue(':nomrbre', $producto->nombre, PDO::PARAM_STR);
+		$consulta->bindValue(':foto', $producto->foto, PDO::PARAM_STR);
+
 			return $consulta->execute();
 	}
 
@@ -144,16 +136,16 @@ class usuario
 
 //--------------------------------------------------------------------------------//
 
-	public static function InsertarUser($user)
+	public static function Insertar($producto)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("insert into usuarios (usuario,email,password)values(:usuario,:email,:password)");
-		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL InsertarPersona (:usuario,:dni,:password,:partido,:foto)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("insert into producto (nombre,fecha,foto)values(:nombre,:fecha,:foto)");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL Insertarproducto (:dni,:fecha,:sexo,:partido,:foto)");
 
-		$consulta->bindValue(':usuario', $user->usuario, PDO::PARAM_STR);
-		$consulta->bindValue(':email',$user->email, PDO::PARAM_STR);
-		$consulta->bindValue(':password', $user->password, PDO::PARAM_STR);
-	
+		
+		$consulta->bindValue(':fecha',$producto->fecha, PDO::PARAM_STR);
+		$consulta->bindValue(':nombre', $producto->nombre, PDO::PARAM_STR);
+		$consulta->bindValue(':foto', $producto->foto, PDO::PARAM_STR);
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	
@@ -171,7 +163,7 @@ class usuario
 		$persona->id = "4";
 		$persona->nombre = "rogelio";
 		$persona->apellido = "agua";
-		$persona->usuario = "333333";
+		$persona->dni = "333333";
 		$persona->foto = "333333.jpg";
 
 		//$objetJson = json_encode($persona);
@@ -180,14 +172,14 @@ class usuario
 		$persona2->id = "5";
 		$persona2->nombre = "Bañera";
 		$persona2->apellido = "giratoria";
-		$persona2->usuario = "222222";
+		$persona2->dni = "222222";
 		$persona2->foto = "222222.jpg";
 
 		$persona3 = new stdClass();
 		$persona3->id = "6";
 		$persona3->nombre = "Julieta";
 		$persona3->apellido = "Roberto";
-		$persona3->usuario = "888888";
+		$persona3->dni = "888888";
 		$persona3->foto = "888888.jpg";
 
 		$arrayDePersonas[]=$persona;

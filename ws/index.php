@@ -24,6 +24,7 @@ header('Access-Control-Allow-Origin: *');
 require 'vendor/autoload.php';
 require '../PHP/clases/Personas.php';
 require '../PHP/clases/Usuarios.php';
+require '../PHP/clases/Productos.php';
 /**
  * Step 2: Instantiate a Slim application
  *
@@ -63,7 +64,13 @@ $app->get('/usuarios[/]', function ($request, $response, $args) {
     
     return $response;
 });
-
+$app->get('/productos[/]', function ($request, $response, $args) {
+    $datos = Productos::TraerTodos();
+    $response->write(json_encode($datos))   ;//INTERNAL SERVER ERROR 500 -> Porque le es6taba devolviendo una referencia a memoria del servidor (hay que pasar un "string" del objeto transformado a json!!)
+    //$response->write("Lista de usuarios");
+    
+    return $response;
+});
 
 
 

@@ -5,13 +5,13 @@
         <input type="text" id="usuario" name="usuario" ng-model="usuario.usuario" placeholder="Ingrese su usuario" value="" required="true"><br>
 
 
-        <input type="number" id="dni" name="dni" ng-model="usuario.dni" placeholder="Ingrese su dni" required="true"><br>
+        <input type="email" id="email" name="email" ng-model="usuario.email" placeholder="Ingrese su email" required="true"><br>
 
         <input type="password" id="clave" minlength="4" ng-model="usuario.password" placeholder="clave" required="true" value=""><br>
 
 
 
-        <button class="button-green" id="guardar" ng-click="Guardar()" ng-disabled="myForm.$invalid"><span>Registrarse </span></button><br><br>
+        <button class="button-green" id="guardar" ng-click="Guardar()" ng-disabled="myForm.$invalid"><span>Registrar </span></button><br><br>
 
 
       </form>

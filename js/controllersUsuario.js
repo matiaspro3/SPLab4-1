@@ -84,29 +84,26 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state,fact
   $scope.Admin = function(){
   $scope.usuario.usuario = "matias";
   $scope.usuario.dni = 32935835;
+  $scope.usuario.email = "admin@admin";
   $scope.usuario.password = 4444;
   $scope.usuario.tipo= "admin";
-
   }
-
-
 
 
   $scope.Vende = function(){
   $scope.usuario.usuario = "florinda";
   $scope.usuario.dni = 7878;
+  $scope.usuario.email = "vend@vend";
   $scope.usuario.password = 7878;
   $scope.usuario.tipo= "vend"; 
   }
-
-
-
-
+ 
   $scope.Compra = function(){
   $scope.usuario.usuario = "pedro";
   $scope.usuario.dni = 1212;
+  $scope.usuario.email = "comp@comp";
   $scope.usuario.password = 4545;
- $scope.usuario.tipo= "comp"; 
+  $scope.usuario.tipo= "comp"; 
   }
 
 
@@ -117,7 +114,7 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state,fact
   $scope.authenticate = function(provider) {
       $auth.authenticate(provider)
       .then(function(response) {
-        console.log(response);
+        console.info("autenticatee",response);
       })
       .catch(function(response) {
         console.log("rompió github!");
@@ -132,7 +129,7 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state,fact
   $scope.Login = function(){
 
     //Esto es una llamada equivalente a $http
-    console.log($scope.usuario);
+    console.info("userrrrrrrrr...",$scope.usuario);
     $auth.login($scope.usuario)
     .then(function(response) {
         console.info("correcto", response);

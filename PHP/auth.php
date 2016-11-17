@@ -17,6 +17,7 @@ if ($log!=false){
 	$ClaveDeEncritacion = 'estaEsLaClave';
 	$token["usuario"] = $log->usuario;
 	$token["dni"] = $log->dni;
+	$token["email"] = $log->email;
 	$token["pass"] = $log->password;
 	//$token["perfil"]="admin";
 	$token["perfil"]=$log->tipo;
