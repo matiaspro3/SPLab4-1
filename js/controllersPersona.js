@@ -145,9 +145,11 @@ FactoryPersona.Alta($scope.persona).then(function(rta){
 
 
 
-app.controller('controlPersonaGrilla', function($scope, $http, $state, $auth,FactoryPersona) {
+app.controller('controlPersonaGrilla', function($scope, $http, $state, $auth,FactoryPersona,factoryUserActual) {
     
    
+   $scope.user = factoryUserActual.Logueado;
+
 
 
   $scope.Traer=function(){/*

@@ -49,7 +49,7 @@ app.controller('controlUsuario', function($scope, $http,$auth,$state,factoryUser
 
 
 app.controller('controlUsuarioMenu', function($scope, $http,$auth,$state,factoryUserActual) {
-        
+        /*
   if($auth.isAuthenticated()){
           $scope.selogueo=true;
     
@@ -58,11 +58,17 @@ app.controller('controlUsuarioMenu', function($scope, $http,$auth,$state,factory
       
           $scope.selogueo=false;
         }
+*/
+
+
+$scope.user =factoryUserActual.Logueado;
+
+
 
   $scope.Desloguearse = function(){
         $auth.logout();
-$scope.user =" ";
-factoryUserActual.Logueado= " ";
+$scope.user ="";
+factoryUserActual.Logueado= "";
      $state.go("inicio");
 }
 
